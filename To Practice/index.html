@@ -1,29 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
-  </head>
+    <link rel="stylesheet" href="styles.css" />
   <body>
-    <form action="">
-      <h1>Temperature Converter</h1>
-      <input type="number" id="textBox" value="0"> <br> <br>
-
-      <input type="radio" id="toFahrenheit" name="unit">
-      <label for="toFahrenheit">Celsius ➡️ Fahrenheit</label> <br>
-
-      <input type="radio" id="toCelsius" name="unit">
-      <label for="toCelsius">Fahrenheit ➡️ Celsius</label> <br>
-
-      <button type="button" id="myButton">Convert</button>
-
-      <h3 id="result"></h3>
-
-    </form>
+    <div class="container">
+      <h1>Counter</h1>
+      <h2 id="h2">0</h2>
+      <div class="action-container">
+        <button id="increment">Increment</button>
+        <button id="decrement">Decrement</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
 
 
-    <script src="Practice.js"></script>
+    <script src="practice.js"></script>
   </body>
 </html>

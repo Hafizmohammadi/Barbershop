@@ -118,3 +118,21 @@
   // Arrays:- used to store multiple values in a single variable
   // Array Methods:-
   // push():- adds one or more elements to the end of an array
+  // //fruits.push("grape");
+//fruits.pop();
+//fruits.unshift("mango");
+//fruits.shift();
+
+// spread operator:- allows an iterable such as an array or string to be expanded into separate elements
+
+// Scope:- determines the accessibility (visibility) of variables. 
+
+
+
+// Developes Notes:
+// Arrow functions:- 
+// map always transforms each element of an array into something else.
+// filter always returns an array of the same data but without some of its elements
+
+// find always returns the first element that matches a condition, if no element matches 
+// a condition then it returns undefined.

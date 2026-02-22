@@ -1,0 +1,42 @@
+
+
+body {
+  box-sizing: border-box;
+  background-color: rgb(249, 248, 246);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+  font-size: 3em;
+  text-align: center;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  gap: 5px;
+}
+
+.action-container {
+  display: flex;
+  gap: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: rgb(33, 104, 203);
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
+  border: none;
+}
+
+button:hover {
+  background-color: rgb(33, 104, 203, 0.8);
+  cursor: pointer;
+}
