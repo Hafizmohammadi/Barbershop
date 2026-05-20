@@ -1,0 +1,119 @@
+[4mGIT-CONFIG[24m(1)                                                                     Git Manual                                                                    [4mGIT-CONFIG[24m(1)
+
+[1mNAME[0m
+       git-config - Get and set repository or global options
+
+[1mSYNOPSIS[0m
+       [4mgit[24m [4mconfig[24m [<file-option>] [--type=<type>] [--fixed-value] [--show-origin] [--show-scope] [-z|--null] <name> [<value> [<value-pattern>]]
+       [4mgit[24m [4mconfig[24m [<file-option>] [--type=<type>] --add <name> <value>
+       [4mgit[24m [4mconfig[24m [<file-option>] [--type=<type>] [--fixed-value] --replace-all <name> <value> [<value-pattern>]
+       [4mgit[24m [4mconfig[24m [<file-option>] [--type=<type>] [--show-origin] [--show-scope] [-z|--null] [--fixed-value] --get <name> [<value-pattern>]
+       [4mgit[24m [4mconfig[24m [<file-option>] [--type=<type>] [--show-origin] [--show-scope] [-z|--null] [--fixed-value] --get-all <name> [<value-pattern>]
+       [4mgit[24m [4mconfig[24m [<file-option>] [--type=<type>] [--show-origin] [--show-scope] [-z|--null] [--fixed-value] [--name-only] --get-regexp <name-regex> [<value-pattern>]
+       [4mgit[24m [4mconfig[24m [<file-option>] [--type=<type>] [-z|--null] --get-urlmatch <name> <URL>
+       [4mgit[24m [4mconfig[24m [<file-option>] [--fixed-value] --unset <name> [<value-pattern>]
+       [4mgit[24m [4mconfig[24m [<file-option>] [--fixed-value] --unset-all <name> [<value-pattern>]
+       [4mgit[24m [4mconfig[24m [<file-option>] --rename-section <old-name> <new-name>
+       [4mgit[24m [4mconfig[24m [<file-option>] --remove-section <name>
+       [4mgit[24m [4mconfig[24m [<file-option>] [--show-origin] [--show-scope] [-z|--null] [--name-only] -l | --list
+       [4mgit[24m [4mconfig[24m [<file-option>] --get-color <name> [<default>]
+       [4mgit[24m [4mconfig[24m [<file-option>] --get-colorbool <name> [<stdout-is-tty>]
+       [4mgit[24m [4mconfig[24m [<file-option>] -e | --edit
+
+[1mDESCRIPTION[0m
+       You can query/set/replace/unset options with this command. The name is actually the section and the key separated by a dot, and the value will be escaped.
+
+       Multiple lines can be added to an option by using the [1m--add [22moption. If you want to update or unset an option which can occur on multiple lines, a [1mvalue-pattern [22m(which
+       is an extended regular expression, unless the [1m--fixed-value [22moption is given) needs to be given. Only the existing values that match the pattern are updated or unset.
+       If you want to handle the lines that do [1mnot [22mmatch the pattern, just prepend a single exclamation mark in front (see also the section called “EXAMPLES”), but note that
+       this only works when the [1m--fixed-value [22moption is not in use.
+
+       The [1m--type=<type> [22moption instructs [4mgit[24m [4mconfig[24m to ensure that incoming and outgoing values are canonicalize-able under the given <type>. If no [1m--type=<type> [22mis given,
+       no canonicalization will be performed. Callers may unset an existing [1m--type [22mspecifier with [1m--no-type[22m.
+
+       When reading, the values are read from the system, global and repository local configuration files by default, and options [1m--system[22m, [1m--global[22m, [1m--local[22m, [1m--worktree [22mand
+       [1m--file <filename> [22mcan be used to tell the command to read from only that location (see the section called “FILES”).
+
+       When writing, the new value is written to the repository local configuration file by default, and options [1m--system[22m, [1m--global[22m, [1m--worktree[22m, [1m--file <filename> [22mcan be
+       used to tell the command to write to that location (you can say [1m--local [22mbut that is the default).
+
+       This command will fail with non-zero status upon error. Some exit codes are:
+
+       •   The section or key is invalid (ret=1),
+
+       •   no section or name was provided (ret=2),
+
+       •   the config file is invalid (ret=3),
+
+       •   the config file cannot be written (ret=4),
+
+       •   you try to unset an option which does not exist (ret=5),
+
+       •   you try to unset/set an option for which multiple lines match (ret=5), or
+
+       •   you try to use an invalid regexp (ret=6).
+
+       On success, the command returns the exit code 0.
+
+       A list of all available configuration variables can be obtained using the [1mgit help --config [22mcommand.
+
+[1mOPTIONS[0m
+       --replace-all
+           Default behavior is to replace at most one line. This replaces all lines matching the key (and optionally the [1mvalue-pattern[22m).
+
+       --add
+           Adds a new line to the option without altering any existing values. This is the same as providing [4m^$[24m as the [1mvalue-pattern [22min [1m--replace-all[22m.
+
+       --get
+           Get the value for a given key (optionally filtered by a regex matching the value). Returns error code 1 if the key was not found and the last value if multiple
+           key values were found.
+
+       --get-all
+           Like get, but returns all values for a multi-valued key.
+
+       --get-regexp
+           Like --get-all, but interprets the name as a regular expression and writes out the key names. Regular expression matching is currently case-sensitive and done
+           against a canonicalized version of the key in which section and variable names are lowercased, but subsection names are not.
+
+       --get-urlmatch <name> <URL>
+           When given a two-part name section.key, the value for section.<URL>.key whose <URL> part matches the best to the given URL is returned (if no such key exists, the
+           value for section.key is used as a fallback). When given just the section as name, do so for all the keys in the section and list them. Returns error code 1 if no
+           value is found.
+
+       --global
+           For writing options: write to global [1m~/.gitconfig [22mfile rather than the repository [1m.git/config[22m, write to [1m$XDG_CONFIG_HOME/git/config [22mfile if this file exists and
+           the [1m~/.gitconfig [22mfile doesn’t.
+
+           For reading options: read only from global [1m~/.gitconfig [22mand from [1m$XDG_CONFIG_HOME/git/config [22mrather than from all available files.
+
+           See also the section called “FILES”.
+
+       --system
+           For writing options: write to system-wide [1m$(prefix)/etc/gitconfig [22mrather than the repository [1m.git/config[22m.
+
+           For reading options: read only from system-wide [1m$(prefix)/etc/gitconfig [22mrather than from all available files.
+
+           See also the section called “FILES”.
+
+       --local
+           For writing options: write to the repository [1m.git/config [22mfile. This is the default behavior.
+
+           For reading options: read only from the repository [1m.git/config [22mrather than from all available files.
+
+           See also the section called “FILES”.
+
+       --worktree
+           Similar to [1m--local [22mexcept that [1m$GIT_DIR/config.worktree [22mis read from or written to if [1mextensions.worktreeConfig [22mis enabled. If not it’s the same as [1m--local[22m. Note
+           that [1m$GIT_DIR [22mis equal to [1m$GIT_COMMON_DIR [22mfor the main working tree, but is of the form [1m$GIT_DIR/worktrees/<id>/ [22mfor other working trees. See [1mgit-worktree[22m(1) to
+           learn how to enable [1mextensions.worktreeConfig[22m.
+
+       -f <config-file>, --file <config-file>
+           For writing options: write to the specified file rather than the repository [1m.git/config[22m.
+
+           For reading options: read only from the specified file rather than from all available files.
+
+           See also the section called “FILES”.
+
+       --blob <blob>
+           Similar to [1m--file [22mbut use the given blob instead of a file. E.g. you can use [4mmaster:.gitmodules[24m to read values from the file [4m.gitmodules[24m in the master branch. See
+           "SPECIFYING REVISIONS" section in [1mgitrevisions[22m(7) for a m
