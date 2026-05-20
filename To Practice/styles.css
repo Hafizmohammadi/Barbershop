@@ -1,42 +1,55 @@
 
-
 body {
-  box-sizing: border-box;
-  background-color: rgb(249, 248, 246);
+  margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+  background-color: rgb(41, 40, 40);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-
-h2 {
-  font-size: 3em;
-  text-align: center;
-}
-
 
 .container {
+  background-color: rgb(60, 59, 59);
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
-  gap: 5px;
-}
-
-.action-container {
-  display: flex;
-  gap: 20px;
-}
-
-button {
-  padding: 10px 20px;
+  margin: 10px;
+  padding: 20px;
   border-radius: 10px;
-  background-color: rgb(33, 104, 203);
-  color: white;
-  font-weight: bold;
-  font-size: 1.2em;
-  border: none;
 }
 
-button:hover {
-  background-color: rgb(33, 104, 203, 0.8);
-  cursor: pointer;
+.links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+a {
+  color: white;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgb(74, 73, 73);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  width: 95%;
+  text-align: center;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  font-weight: bold; 
+}
+
+a:hover {
+  background-color: rgb(40, 39, 39);
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
